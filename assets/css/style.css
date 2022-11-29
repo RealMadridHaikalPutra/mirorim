@@ -1231,6 +1231,10 @@ h6 {
   background: #3e4f6f;
 }
 
+.error-404 img {
+  width: 130%;
+}
+
 @media (min-width: 992px) {
   .error-404 img {
     max-width: 50%;
