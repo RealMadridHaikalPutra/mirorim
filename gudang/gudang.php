@@ -288,7 +288,7 @@ require '../assets/php/function.php';
 
 
       <li class="nav-item">
-        <a class="nav-link " data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-bank"></i><span>All Product</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
@@ -316,12 +316,20 @@ require '../assets/php/function.php';
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
+<<<<<<< HEAD:gudang/gudang.php
             <a href="forms-elements.php">
+=======
+            <a href="updatebarang.html">
+>>>>>>> d2606922db5d44a26acf3bb6025d8354570cfff2:gudang/gudang.html
               <i class="bi bi-circle"></i><span>Update Item</span>
             </a>
           </li>
           <li>
+<<<<<<< HEAD:gudang/gudang.php
             <a href="forms-layouts.php">
+=======
+            <a href="barangkeluar.html">
+>>>>>>> d2606922db5d44a26acf3bb6025d8354570cfff2:gudang/gudang.html
               <i class="bi bi-circle"></i><span>Exit Item</span>
             </a>
           </li>
