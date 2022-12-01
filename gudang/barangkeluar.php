@@ -1,3 +1,7 @@
+<?php
+require '../assets/php/function.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -287,12 +291,12 @@
         </a>
         <ul id="components-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
             <li>
-                <a href="gudang.html">
+                <a href="gudang.php">
                   <i class="bi bi-circle"></i><span>Warehouse</span>
                 </a>
               </li>
               <li>
-                <a href="gudang5.html">
+                <a href="gudang5.php">
                   <i class="bi bi-circle"></i><span>Warehouse 5</span>
                 </a>
               </li>
@@ -310,12 +314,12 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="updatebarang.html" class="active">
+            <a href="updatebarang.html">
               <i class="bi bi-circle"></i><span>Update Item</span>
             </a>
           </li>
           <li>
-            <a href="barangkeluar.html">
+            <a href="barangkeluar.html" class="active">
               <i class="bi bi-circle"></i><span>Exit Item</span>
             </a>
           </li>
@@ -340,11 +344,11 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Update Item</h1>
+      <h1>Exit Item</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Update Item Masuk</li>
+          <li class="breadcrumb-item active">Barang Keluar</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -355,7 +359,7 @@
             <div class="card">
               <div class="card-body">
                 <div class="card-title">
-                    <h5>History Update Item</h5>
+                    <h5>History Item Out</h5>
                         <button type="button" class="btn btn-primary">
                             <i class="bi bi-download"></i>
                         </button>
@@ -369,11 +373,10 @@
                   <tr>
                     <th scope="col">No</th>
                     <th scope="col">SKU</th>
-                    <th scope="col">SKU Gudang</th>
                     <th scope="col">Nama Barang</th>
                     <th scope="col">Warehouse</th>
                     <th scope="col">Quantity</th>
-                    <th scope="col">Item From</th>
+                    <th scope="col">Picker</th>
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
@@ -381,12 +384,11 @@
                   <tr>
                     <th scope="row">1</th>
                     <td>3F4</td>
-                    <td>K1A1</td>
                     <td>Fan 12 CM</td>
                     <td>2</td>
                     <td>50</td>
-                    <td>China / Lokal</td>
-                    <td>In</td>
+                    <td>Dims</td>
+                    <td>Out</td>
                   </tr>
                 </tbody>
               </table>
