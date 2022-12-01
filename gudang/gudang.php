@@ -1,3 +1,9 @@
+<?php
+
+require '../assets/php/function.php';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,7 +49,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="index.php" class="logo d-flex align-items-center">
         <img src="../assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">MIRORIM</span>
       </a>
@@ -224,7 +230,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
                 <i class="bi bi-person"></i>
                 <span>My Profile</span>
               </a>
@@ -234,7 +240,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.php">
                 <i class="bi bi-gear"></i>
                 <span>Account Settings</span>
               </a>
@@ -244,7 +250,7 @@
             </li>
 
             <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.php">
                 <i class="bi bi-question-circle"></i>
                 <span>Need Help?</span>
               </a>
@@ -274,7 +280,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="index.html">
+        <a class="nav-link collapsed" href="index.php">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -287,17 +293,17 @@
         </a>
         <ul id="components-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
             <li>
-                <a href="gudang.html"  class="active">
+                <a href="gudang.php"  class="active">
                   <i class="bi bi-circle"></i><span>Warehouse</span>
                 </a>
               </li>
               <li>
-                <a href="gudang5.html">
+                <a href="gudang5.php">
                   <i class="bi bi-circle"></i><span>Warehouse 5</span>
                 </a>
               </li>
               <li>
-                <a href="toko.html">
+                <a href="toko.php">
                   <i class="bi bi-circle"></i><span>Store</span>
                 </a>
               </li>
@@ -310,17 +316,17 @@
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.html">
+            <a href="forms-elements.php">
               <i class="bi bi-circle"></i><span>Update Item</span>
             </a>
           </li>
           <li>
-            <a href="forms-layouts.html">
+            <a href="forms-layouts.php">
               <i class="bi bi-circle"></i><span>Exit Item</span>
             </a>
           </li>
           <li>
-            <a href="forms-editors.html">
+            <a href="forms-editors.php">
               <i class="bi bi-circle"></i><span>Exit To Store</span>
             </a>
           </li>
@@ -329,7 +335,7 @@
 
       <!--F.A.Q-->
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pages-faq.html">
+        <a class="nav-link collapsed" href="pages-faq.php">
           <i class="bi bi-question-circle"></i>
           <span>F.A.Q</span>
         </a>
@@ -343,7 +349,7 @@
       <h1>Warehouse</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
           <li class="breadcrumb-item active">Warehouse</li>
         </ol>
       </nav>
@@ -354,8 +360,12 @@
   
             <div class="card">
               <div class="card-body">
-                <h5 class="card-title">Stock Warehouse</h5>
-
+                <div class="card-title">
+                    <h5>Stock Warehouse</h5>
+                    <a class="btn btn-outline-primary" type="button" href="baru.php">
+                      Add New
+                    </a>
+                </div>
               <!-- Table with hoverable rows -->
               <table class="table table-hover">
                 <thead>
@@ -370,15 +380,29 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <?php 
+                    $ambildata = mysqli_query($koneksi, "SELECT * FROM stok where gudang <> 5");
+                    $i = 1;
+                    while($data=mysqli_fetch_array($ambildata)){
+                      $nama = $data['nama'];
+                      $image = $data['image'];
+                      $skut = $data['skutoko'];
+                      $skug = $data['skugudang'];
+                      $gudang = $data['gudang'];
+                      $quantity = $data['quantity'];
+                  ?>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>#</td>
-                    <td>Brandon Jacob</td>
-                    <td>2J1</td>
-                    <td>K1C2</td>
-                    <td>2</td>
-                    <td>2000</td>
+                    <th scope="row"><?=$i++;?></th>
+                    <td><?=$image;?></td>
+                    <td><?=$nama;?></td>
+                    <td><?=$skut;?></td>
+                    <td><?=$skug;?></td>
+                    <td><?=$gudang;?></td>
+                    <td><?=$quantity;?></td>
                   </tr>
+                  <?php
+                    };
+                  ?>
                 </tbody>
               </table>
               <!-- End Table with hoverable rows -->
