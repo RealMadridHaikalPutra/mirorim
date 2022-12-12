@@ -34,13 +34,19 @@ require '../assets/php/function.php';
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
+      <style>
+        .zoomable {
+      width: 100px;
+      }
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.4.1
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+      .zoomable:hover {
+      transform: scale(3);
+      transition: 0.3s ease;
+      }
+      .gambar {
+          width: 250px;
+        }
+    </style>
 </head>
 
 <body>
@@ -72,146 +78,87 @@ require '../assets/php/function.php';
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
+          <li class="nav-item dropdown">
+        <?php
+
+          $getnumber = mysqli_query($koneksi, "SELECT * FROM updateitem WHERE readmsg='0'");
+          $hitungnumber = mysqli_num_rows($getnumber);
+
+        ?>
+        <?php
+
+          $getnumberex = mysqli_query($koneksi, "SELECT * FROM exititem WHERE readmsg='0'");
+          $hitungnumberex = mysqli_num_rows($getnumberex);
+
+        ?>
 
           <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
+            <span class="badge bg-primary badge-number"><?=$hitungnumber+$hitungnumberex;?></span>
           </a><!-- End Notification Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                <?php
+                  $getmsg = mysqli_query($koneksi, "SELECT * FROM updateitem INNER JOIN exititem ON updateitem.readmsg = exititem.readmsg");
+                  while($data  =mysqli_fetch_assoc($getmsg)){
+                    $skut = $data['skutoko'];
+                    $id = $data['idstok'];
+                  }
+                  ?>
             <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
+              You have <?=$hitungnumber+$hitungnumberex;?> new notifications
+              <a href="gudang5.php?ids=<?=$skut;?>"><span class="badge rounded-pill bg-primary p-2 ms-2">Close</span></a>
             </li>
+            
             <li>
               <hr class="dropdown-divider">
             </li>
+            <?php
 
+                  $getmsg = mysqli_query($koneksi, "SELECT * FROM updateitem WHERE readmsg='0'");
+                  if(mysqli_num_rows($getmsg)>0);
+                  while($data  =mysqli_fetch_assoc($getmsg)){
+                      $skut = $data['skutoko'];
+                      $quantity = $data['quantityup'];
+                      $id = $data['idstok'];
+                  ?>
             <li class="notification-item">
               <i class="bi bi-exclamation-circle text-warning"></i>
               <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
+                <p><a href="updatebarang.php?id=<?=$id;?>">SKU <?=$skut;?> Telah di Update</a></p>
+                <p><?=$quantity;?></p>
               </div>
             </li>
-
             <li>
               <hr class="dropdown-divider">
             </li>
+            <?php
+              }
+            ?>
+            <?php
 
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
+                $getmsg = mysqli_query($koneksi, "SELECT * FROM exititem WHERE readmsg='0'");
+                if(mysqli_num_rows($getmsg)>0);
+                while($data  =mysqli_fetch_assoc($getmsg)){
+                    $skut = $data['skutoko'];
+                    $quantity = $data['quantityx'];
+                    $id = $data['idstok'];
+            ?>
+              <li class="notification-item">
+                <i class="bi bi-exclamation-circle text-warning"></i>
+                    <div>
+                      <p><a href="barangkeluar.php?idx=<?=$id;?>">SKU <?=$skut;?> Telah Berkurang</a></p>
+                      <p><?=$quantity;?></p>
+                    </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+            <?php
+              }
+            ?>
 
           </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="../assets/img/messages-1.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="../assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
-
-          </ul><!-- End Messages Dropdown Items -->
-
-        </li><!-- End Messages Nav -->
 
         <li class="nav-item dropdown pe-3">
 
@@ -315,26 +262,13 @@ require '../assets/php/function.php';
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-<<<<<<< HEAD:gudang/gudang5.php
-            <a href="forms-elements.php">
-=======
-            <a href="updatebarang.html">
->>>>>>> d2606922db5d44a26acf3bb6025d8354570cfff2:gudang/gudang5.html
+            <a href="updatebarang.php">
               <i class="bi bi-circle"></i><span>Update Item</span>
             </a>
           </li>
           <li>
-<<<<<<< HEAD:gudang/gudang5.php
-            <a href="forms-layouts.php">
-=======
-            <a href="barangkeluar.html">
->>>>>>> d2606922db5d44a26acf3bb6025d8354570cfff2:gudang/gudang5.html
+            <a href="barangkeluar.php">
               <i class="bi bi-circle"></i><span>Exit Item</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.php">
-              <i class="bi bi-circle"></i><span>Exit To Store</span>
             </a>
           </li>
         </ul>
@@ -372,8 +306,15 @@ require '../assets/php/function.php';
                   <a class="btn btn-outline-primary" type="button" href="baru.php">
                     Add New
                   </a>
+                  <a class="btn btn-outline-primary" type="button" href="update.php">
+                    Update Item
+                  </a>
+                  <a class="btn btn-outline-primary" type="button" href="exit.php">
+                    Exit Item
+                  </a>
               </div>
               <!-- Table with hoverable rows -->
+              
               <table class="table table-hover">
                 <thead>
                   <tr>
@@ -386,30 +327,115 @@ require '../assets/php/function.php';
                     <th scope="col">Quantity</th>
                   </tr>
                 </thead>
-                <tbody>
-                  <?php 
-                    $ambildata = mysqli_query($koneksi, "SELECT * FROM stok where gudang='5'");
+                <?php 
+                    $ambildata = mysqli_query($koneksi, "SELECT * FROM stok where gudang=5");
                     $i = 1;
                     while($data=mysqli_fetch_array($ambildata)){
+                      $idb = $data['idstok'];
                       $nama = $data['nama'];
-                      $image = $data['image'];
                       $skut = $data['skutoko'];
                       $skug = $data['skugudang'];
                       $gudang = $data['gudang'];
                       $quantity = $data['quantity'];
+
+                      //cek data gambar ada apa kagak
+                      $gambar = $data['image'];
+                      if($gambar==null){
+                        // jika tidak ada gambar
+                        $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                      } else {
+                        //jika ada gambar
+                        $img ='<img src="../images/'.$gambar.'" class="zoomable">';
+                      }
+
+                      //cek data gambar ada apa kagak
+                      $gambar = $data['image'];
+                      if($gambar==null){
+                        // jika tidak ada gambar
+                        $imgx = '<img src="../assets/img/noimageavailable.png" class="gambar">';
+                      } else {
+                        //jika ada gambar
+                        $imgx ='<img src="../images/'.$gambar.'" class="gambar">';
+                      }
+
+
                   ?>
+                <tbody data-bs-toggle="modal" data-bs-target="#largeModal<?=$idb;?>">
+                  
                   <tr>
                     <th scope="row"><?=$i++;?></th>
-                    <td><?=$image;?></td>
+                    <td><?=$img;?></td>
                     <td><?=$nama;?></td>
-                    <td><?=$skut;?></td>
-                    <td><?=$skug;?></td>
+                    <td class="text-uppercase"><?=$skut;?></td>
+                    <td class="text-uppercase"><?=$skug;?></td>
                     <td><?=$gudang;?></td>
                     <td><?=$quantity;?></td>
                   </tr>
-                  <?php
-                    };
-                  ?>
+                  <!--Modal-->
+                <div class="modal fade" id="largeModal<?=$idb;?>" tabindex="-1">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title">Edit Item</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      
+                        <!-- Floating Labels Form -->
+                      <form method="post" class="row g-3" enctype="multipart/form-data">   
+                      <div class="modal-body">
+                              <div class="col-sm-12">
+                                <label><?=$imgx;?></label>
+                                <div class="form-floating">
+                                  <input type="file" name="file" class="form-control" id="floatingName">
+                                </div>
+                              </div>
+                              <br>
+                              <div class="col-sm-12">
+                                <label>Item Name</label>
+                                <div class="form-floating">
+                                  <input type="text" name="nama" class="form-control"  value="<?=$nama;?>" id="floatingName" placeholder="SKU Store">
+                                  <label for="floatingName"></label>
+                                </div>
+                              </div>
+                              <br>
+                              <input type="hidden" class="form-control text-uppercase" id="floatingName" name="skutoko" value="<?=$skut;?>" placeholder="SKU Warehouse">
+                              <div class="col-sm-12">
+                                <label>SKU Warehouse</label>
+                                <div class="form-floating">
+                                  <input type="text" class="form-control text-uppercase" id="floatingName" value="<?=$skug;?>" name="skugudang" placeholder="SKU Warehouse">
+                                  <label for="floatingName" class="text-uppercase"></label>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="col-sm-12">
+                                <label>Warehouse</label>
+                                <div class="form-floating">
+                                  <input type="number" class="form-control text-uppercase" id="floatingName" value="<?=$gudang;?>" name="gudang" placeholder="arehouse">
+                                  <label for="floatingName"></label>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="col-sm-12">
+                                <label>Quantity</label>
+                                <div class="form-floating">
+                                  <input type="number" class="form-control text-uppercase" value="<?=$quantity;?>" id="floatingName" name="quantity" placeholder="Quantity">
+                                  <label for="floatingName"></label>
+                                </div>
+                              </div>
+                              <br>
+                              <div class="text-center">
+                                <button type="submit" name="edit5" class="btn btn-primary">Submit</button>
+                                <button type="reset" class="btn btn-secondary">Reset</button>
+                              </div> 
+                      </div>
+                      </form>
+                        <!-- End floating Labels Form -->
+                    </div>
+                  </div>
+                </div>
+                <?php
+                  };
+                ?>
                 </tbody>
               </table>
               <!-- End Table with hoverable rows -->
@@ -449,6 +475,8 @@ require '../assets/php/function.php';
 
   <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  
 
 </body>
 

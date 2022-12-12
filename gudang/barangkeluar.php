@@ -1,5 +1,9 @@
 <?php
 require '../assets/php/function.php';
+if(isset($_GET['idx'])){
+  $ambilskuexit = $_GET['idx'];
+  $mainsku = mysqli_query($koneksi, "UPDATE exititem SET readmsg=1 WHERE idstok='$ambilskuexit'");
+}
 ?>
 
 <!DOCTYPE html>
@@ -32,13 +36,16 @@ require '../assets/php/function.php';
 
   <!-- Template Main CSS File -->
   <link href="../assets/css/style.css" rel="stylesheet">
+  <style>
+        .zoomable {
+      width: 100px;
+      }
 
-  <!-- =======================================================
-  * Template Name: NiceAdmin - v2.4.1
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+       .zoomable:hover {
+      transform: scale(3);
+      transition: 0.3s ease;
+      }
+    </style>
 </head>
 
 <body>
@@ -70,153 +77,94 @@ require '../assets/php/function.php';
           </a>
         </li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
+            <li class="nav-item dropdown">
+            <?php
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
+            $getnumber = mysqli_query($koneksi, "SELECT * FROM updateitem WHERE readmsg='0'");
+            $hitungnumber = mysqli_num_rows($getnumber);
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              You have 4 new notifications
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            ?>
+            <?php
 
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
+            $getnumberex = mysqli_query($koneksi, "SELECT * FROM exititem WHERE readmsg='0'");
+            $hitungnumberex = mysqli_num_rows($getnumberex);
 
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            ?>
 
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
+            <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+              <i class="bi bi-bell"></i>
+              <span class="badge bg-primary badge-number"><?=$hitungnumber+$hitungnumberex;?></span>
+            </a><!-- End Notification Icon -->
+            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
+                  <?php
+                    $getmsg = mysqli_query($koneksi, "SELECT * FROM updateitem INNER JOIN exititem ON updateitem.readmsg = exititem.readmsg");
+                    while($data  =mysqli_fetch_assoc($getmsg)){
+                      $skut = $data['skutoko'];
+                      $id = $data['idstok'];
+                    }
+                    ?>
+              <li class="dropdown-header">
+                You have <?=$hitungnumber+$hitungnumberex;?> new notifications
+                <a href="barangkeluar.php?ids=<?=$skut;?>"><span class="badge rounded-pill bg-primary p-2 ms-2">Close</span></a>
+              </li>
+              
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <?php
 
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
-
-          </ul><!-- End Notification Dropdown Items -->
-
-        </li><!-- End Notification Nav -->
-
-        <li class="nav-item dropdown">
-
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-chat-left-text"></i>
-            <span class="badge bg-success badge-number">3</span>
-          </a><!-- End Messages Icon -->
-
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow messages">
-            <li class="dropdown-header">
-              You have 3 new messages
-              <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-
-            <li class="message-item">
-              <a href="#">
-                <img src="../assets/img/messages-1.jpg" alt="" class="rounded-circle">
+                    $getmsg = mysqli_query($koneksi, "SELECT * FROM updateitem WHERE readmsg='0'");
+                    if(mysqli_num_rows($getmsg)>0);
+                    while($data  =mysqli_fetch_assoc($getmsg)){
+                        $skut = $data['skutoko'];
+                        $quantity = $data['quantityup'];
+                        $id = $data['idstok'];
+                    ?>
+              <li class="notification-item">
+                <i class="bi bi-exclamation-circle text-warning"></i>
                 <div>
-                  <h4>Maria Hudson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>4 hrs. ago</p>
+                  <p><a href="updatebarang.php?id=<?=$id;?>">SKU <?=$skut;?> Telah di Update</a></p>
+                  <p><?=$quantity;?></p>
                 </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <?php
+                }
+              ?>
+              <?php
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../assets/img/messages-2.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>Anna Nelson</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>6 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+                  $getmsg = mysqli_query($koneksi, "SELECT * FROM exititem WHERE readmsg='0'");
+                  if(mysqli_num_rows($getmsg)>0);
+                  while($data  =mysqli_fetch_assoc($getmsg)){
+                      $skut = $data['skutoko'];
+                      $quantity = $data['quantityx'];
+                      $id = $data['idstok'];
+              ?>
+                <li class="notification-item">
+                  <i class="bi bi-exclamation-circle text-warning"></i>
+                      <div>
+                        <p><a href="barangkeluar.php?idx=<?=$id;?>">SKU <?=$skut;?> Telah Berkurang</a></p>
+                        <p><?=$quantity;?></p>
+                      </div>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+              <?php
+                }
+              ?>
 
-            <li class="message-item">
-              <a href="#">
-                <img src="../assets/img/messages-3.jpg" alt="" class="rounded-circle">
-                <div>
-                  <h4>David Muldon</h4>
-                  <p>Velit asperiores et ducimus soluta repudiandae labore officia est ut...</p>
-                  <p>8 hrs. ago</p>
-                </div>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            </ul><!-- End Notification Dropdown Items -->
 
-            <li class="dropdown-footer">
-              <a href="#">Show all messages</a>
-            </li>
+            <li class="nav-item dropdown pe-3">
 
-          </ul><!-- End Messages Dropdown Items -->
+            <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+              <img src="../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
+              <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
+            </a><!-- End Profile Iamge Icon -->
 
-        </li><!-- End Messages Nav -->
-
-        <li class="nav-item dropdown pe-3">
-
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <img src="../assets/img/profile-img.jpg" alt="Profile" class="rounded-circle">
-            <span class="d-none d-md-block dropdown-toggle ps-2">K. Anderson</span>
-          </a><!-- End Profile Iamge Icon -->
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header">
@@ -314,18 +262,13 @@ require '../assets/php/function.php';
         </a>
         <ul id="forms-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
           <li>
-            <a href="updatebarang.html">
+            <a href="updatebarang.php">
               <i class="bi bi-circle"></i><span>Update Item</span>
             </a>
           </li>
           <li>
-            <a href="barangkeluar.html" class="active">
+            <a href="barangkeluar.php" class="active">
               <i class="bi bi-circle"></i><span>Exit Item</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.html">
-              <i class="bi bi-circle"></i><span>Exit To Store</span>
             </a>
           </li>
         </ul>
@@ -356,41 +299,60 @@ require '../assets/php/function.php';
     <section class="section">
         <div class="row">
   
-            <div class="card">
+        <div class="card">
               <div class="card-body">
                 <div class="card-title">
-                    <h5>History Item Out</h5>
-                        <button type="button" class="btn btn-primary">
-                            <i class="bi bi-download"></i>
-                        </button>
-                        <button type="button" class="btn btn-danger">
-                            <a>Delete History</a>
-                        </button>
+                    <h5>Outgoing History</h5>
+                    <a class="btn btn-outline-primary" type="button" href="exit.php">
+                      Exit Item
+                    </a>
                 </div>
               <!-- Table with hoverable rows -->
-              <table class="table table-striped">
+              <table class="table table-striped" data-bs-toggle="modal" data-bs-target="#smallModal">
                 <thead>
                   <tr>
                     <th scope="col">No</th>
-                    <th scope="col">SKU</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">SKU Toko</th>
                     <th scope="col">Nama Barang</th>
-                    <th scope="col">Warehouse</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Picker</th>
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
                 <tbody>
+                  <?php
+                    $ambildataexit = mysqli_query($koneksi, "SELECT * FROM exititem INNER JOIN stok ON exititem.skutoko = stok.skutoko");
+                    $i = 1;
+                    while($data=mysqli_fetch_array($ambildataexit)){
+                      $skut = $data['skutoko'];
+                      $nama = $data['nama'];
+                      $quantity = $data['quantityx'];
+                      $picker = $data['picker'];
+                      $status = $data['status'];
+
+                      //cek data gambar ada apa kagak
+                      $gambar = $data['image'];
+                      if($gambar==null){
+                        // jika tidak ada gambar
+                        $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
+                      } else {
+                        //jika ada gambar
+                        $img ='<img src="../images/'.$gambar.'" class="zoomable">';
+                      }
+                  ?>
                   <tr>
-                    <th scope="row">1</th>
-                    <td>3F4</td>
-                    <td>Fan 12 CM</td>
-                    <td>2</td>
-                    <td>50</td>
-                    <td>Dims</td>
-                    <td>Out</td>
+                    <th scope="row"><?=$i++;?></th>
+                    <td><?=$img;?></td>
+                    <td><?=$skut;?></td>
+                    <td><?=$nama;?></td>
+                    <td><?=$quantity;?></td>
+                    <td><?=$picker;?></td>
+                    <td><?=$status;?></td>
                   </tr>
-                </tbody>
+                  <?php
+                  }
+                  ?>
               </table>
               <!-- End Table with hoverable rows -->
 
@@ -429,6 +391,25 @@ require '../assets/php/function.php';
 
   <!-- Template Main JS File -->
   <script src="../assets/js/main.js"></script>
+
+  <!--Modal-->
+  <div class="modal fade" id="smallModal" tabindex="-1">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Small Modal</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                      Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                      <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                  </div>
+                </div>
+              </div><!-- End Small Modal-->
 
 </body>
 

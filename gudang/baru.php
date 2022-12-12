@@ -316,18 +316,13 @@ require '../assets/php/function.php';
         </a>
         <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="forms-elements.php">
+            <a href="updatebarang.php">
               <i class="bi bi-circle"></i><span>Update Item</span>
             </a>
           </li>
           <li>
-            <a href="forms-layouts.php">
+            <a href="barangkeluar.php">
               <i class="bi bi-circle"></i><span>Exit Item</span>
-            </a>
-          </li>
-          <li>
-            <a href="forms-editors.php">
-              <i class="bi bi-circle"></i><span>Exit To Store</span>
             </a>
           </li>
         </ul>
@@ -349,7 +344,7 @@ require '../assets/php/function.php';
       <h1>Add New Item</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+          <li class="breadcrumb-item"><a href="gudang.php">Home</a></li>
           <li class="breadcrumb-item active">Add New Item</li>
         </ol>
       </nav>
@@ -384,7 +379,7 @@ require '../assets/php/function.php';
                     </div>
                     <div class="col-6">
                       <div class="form-floating">
-                        <input type="file" class="form-control" name="image" id="floatingImage"></Input>
+                        <input type="file" class="form-control" name="file" id="floatingImage"></Input>
                         <label for="floatingImage">Image</label>
                       </div>
                     </div>
@@ -394,6 +389,16 @@ require '../assets/php/function.php';
                           <input type="number" class="form-control" id="floatingQuantity" name="quantity" placeholder="Quantity">
                           <label for="floatingQuantity">Quantity</label>
                         </div>
+                      </div>
+                    </div>
+                    <div class="col-md-4">
+                      <div class="form-floating mb-3">
+                        <select class="form-select" name="from" id="floatingSelect" aria-label="State">
+                          <option selected>--</option>
+                          <option value="China">China</option>
+                          <option value="Lokal">Lokal</option>
+                        </select>
+                        <label for="floatingSelect">Item From</label>
                       </div>
                     </div>
                     <div class="col-md-4">
