@@ -325,6 +325,16 @@ require '../assets/php/function.php';
               <i class="bi bi-circle"></i><span>Exit Item</span>
             </a>
           </li>
+          <li>
+            <a href="updatebarang5.php">
+              <i class="bi bi-circle"></i><span>Update Item 5</span>
+            </a>
+          </li>
+          <li>
+            <a href="barangkeluar5.php">
+              <i class="bi bi-circle"></i><span>Exit Item 5</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Forms Nav -->
 
@@ -359,19 +369,13 @@ require '../assets/php/function.php';
     
                   <!-- Floating Labels Form -->
                   <form class="row g-3" method="post" enctype="multipart/form-data">
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                       <div class="form-floating">
                         <input type="text" class="form-control text-uppercase" id="floatingName" name="skutoko" placeholder="SKU Store">
                         <label for="floatingName">SKU Store</label>
                       </div>
                     </div>
                     <div class="col-md-4">
-                      <div class="form-floating">
-                        <input type="text" class="form-control text-uppercase" id="floatingName" name="skugudang" placeholder="SKU Warehouse">
-                        <label for="floatingName">SKU Warehouse</label>
-                      </div>
-                    </div>
-                    <div class="col-md-2">
                       <div class="col-md-12">
                         <div class="form-floating">
                           <input type="number" class="form-control" id="floatingQuantity" name="quantity" placeholder="Quantity">
@@ -387,21 +391,6 @@ require '../assets/php/function.php';
                           <option value="Lokal">Lokal</option>
                         </select>
                         <label for="floatingSelect">Item From</label>
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      <div class="form-floating mb-3">
-                        <select class="form-select" name="gudang" id="floatingSelect" aria-label="State">
-                          <option selected>--</option>
-                          <option value="1">Warehouse 1</option>
-                          <option value="2">Warehouse 2</option>
-                          <option value="3">Warehouse 3</option>
-                          <option value="4">Warehouse 4</option>
-                          <option value="5">Warehouse 5</option>
-                          <option value="6">Warehouse 6</option>
-                          <option value="7">Warehouse 7</option>
-                        </select>
-                        <label for="floatingSelect">Warehouse</label>
                       </div>
                     </div>
                     <div class="text-center">

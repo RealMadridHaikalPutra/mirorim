@@ -275,6 +275,16 @@ if(isset($_GET['id'])){
               <i class="bi bi-circle"></i><span>Exit Item</span>
             </a>
           </li>
+          <li>
+            <a href="updatebarang5.php">
+              <i class="bi bi-circle"></i><span>Update Item 5</span>
+            </a>
+          </li>
+          <li>
+            <a href="barangkeluar5.php">
+              <i class="bi bi-circle"></i><span>Exit Item 5</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Forms Nav -->
 
@@ -295,7 +305,7 @@ if(isset($_GET['id'])){
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active">Update Item Masuk</li>
+            <li class="breadcrumb-item active">Update Item Masuk</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -308,11 +318,42 @@ if(isset($_GET['id'])){
                 <div class="card-title">
                     <h5>Update Barang Existing</h5>
                     <a class="btn btn-outline-primary" type="button" href="update.php">
-                      Update Item
+                     <i class="bi bi-arrow-repeat"></i> Update Item
+                    </a>
+                    <a class="btn btn-outline-success"  type="button" href="update.php">
+                     <i class="bi bi-cloud-download-fill"></i> Download
+                    </a>
+                    <?php
+                      $hapusdata = mysqli_query($koneksi, "SELECT * FROM updateitem");
+                      while($hapus=mysqli_fetch_array($hapusdata)){
+                        $idb = $hapus['idstok'];
+                      }
+                    ?>
+                    <a class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#smallModal<?=$idb;?>">
+                      <i class="bi bi-trash-fill"></i> Delete All History
                     </a>
                 </div>
+                <div class="modal fade" id="smallModal<?=$idb;?>" tabindex="-1">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Hapus Riwayat</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post">
+                    <div class="modal-body">
+                      Apakah yakin ingin menghapus semua riwayat
+                      <input type="hidden" name="idb" value="<?=$idb;?>">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" name="hapusupdate" class="btn btn-danger">Hapus</button>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div><!-- End Small Modal-->
               <!-- Table with hoverable rows -->
-              <table class="table table-striped" data-bs-toggle="modal" data-bs-target="#smallModal">
+              <table class="table table-striped" >
                 <thead>
                   <tr>
                     <th scope="col">No</th>
@@ -322,20 +363,23 @@ if(isset($_GET['id'])){
                     <th scope="col">Nama Barang</th>
                     <th scope="col">Warehouse</th>
                     <th scope="col">Quantity</th>
+                    <th scope="col">Time Update</th>
                     <th scope="col">Item From</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody  data-bs-toggle="modal" data-bs-target="#smallModal<?=$idb;?>">
                   <?php
                     $ambilduatabel = mysqli_query($koneksi, "SELECT * FROM updateitem INNER JOIN stok ON updateitem.skutoko = stok.skutoko");
                     $i = 1;
                     while($data=mysqli_fetch_array($ambilduatabel)){
+                      $idb = $data['idstok'];
                       $skut = $data['skutoko'];
                       $skug = $data['skugudang'];
                       $nama = $data['nama'];
                       $gudang = $data['gudang'];
                       $quantity = $data['quantityup'];
                       $item = $data['fromitem'];
+                      $tanggal = $data['tanggal'];
 
                       //cek data gambar ada apa kagak
                       $gambar = $data['image'];
@@ -347,16 +391,39 @@ if(isset($_GET['id'])){
                         $img ='<img src="../images/'.$gambar.'" class="zoomable">';
                       }
                   ?>
+                  
                   <tr>
                     <th scope="row"><?=$i++;?></th>
                     <td><?=$img;?></td>
-                    <td><?=$skut;?></td>
+                    <td class="text-uppercase"><?=$skut;?></td>
                     <td><?=$skug;?></td>
                     <td><?=$nama;?></td>
                     <td><?=$gudang;?></td>
                     <td><?=$quantity;?></td>
+                    <td><?=$tanggal;?></td>
                     <td><?=$item;?></td>
                   </tr>
+                  
+                  <!--Modal-->
+                  <div class="modal fade" id="smallModal<?=$idb;?>" tabindex="-1">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <h5 class="modal-title">Small Modal</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                          </div>
+                        <form method="post" class="row g-3" enctype="multipart/form-data">
+                          <div class="modal-body">
+                            hapus riwayat ini?
+                          </div>
+                          <input type="text" name="idb" value="<?=$idb?>">
+                          <div class="modal-footer">
+                            <button type="button" name="hapusupdate" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          </div>
+                        </div>
+                        </form>
+                      </div>
+                    </div><!-- End Small Modal--> 
                   <?php
                   }
                   ?>
@@ -366,6 +433,8 @@ if(isset($_GET['id'])){
 
             </div>
           </div>
+
+          
     </div>
   </section>
 
@@ -398,26 +467,7 @@ if(isset($_GET['id'])){
   <script src="../assets/vendor/php-email-form/validate.js"></script>
 
   <!-- Template Main JS File -->
-  <script src="../assets/js/main.js"></script>
-
-  <!--Modal-->
-  <div class="modal fade" id="smallModal" tabindex="-1">
-                <div class="modal-dialog modal-sm">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h5 class="modal-title">Small Modal</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      Non omnis incidunt qui sed occaecati magni asperiores est mollitia. Soluta at et reprehenderit. Placeat autem numquam et fuga numquam. Tempora in facere consequatur sit dolor ipsum. Consequatur nemo amet incidunt est facilis. Dolorem neque recusandae quo sit molestias sint dignissimos.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="button" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div><!-- End Small Modal-->              
+  <script src="../assets/js/main.js"></script>             
 
 </body>
 

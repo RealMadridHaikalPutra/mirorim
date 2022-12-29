@@ -325,6 +325,16 @@ require '../assets/php/function.php';
               <i class="bi bi-circle"></i><span>Exit Item</span>
             </a>
           </li>
+          <li>
+            <a href="updatebarang5.php">
+              <i class="bi bi-circle"></i><span>Update Item 5</span>
+            </a>
+          </li>
+          <li>
+            <a href="barangkeluar5.php">
+              <i class="bi bi-circle"></i><span>Exit Item 5</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Forms Nav -->
 

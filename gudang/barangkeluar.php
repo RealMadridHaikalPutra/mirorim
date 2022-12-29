@@ -271,6 +271,16 @@ if(isset($_GET['idx'])){
               <i class="bi bi-circle"></i><span>Exit Item</span>
             </a>
           </li>
+          <li>
+            <a href="updatebarang5.php">
+              <i class="bi bi-circle"></i><span>Update Item 5</span>
+            </a>
+          </li>
+          <li>
+            <a href="barangkeluar5.php">
+              <i class="bi bi-circle"></i><span>Exit Item 5</span>
+            </a>
+          </li>
         </ul>
       </li><!-- End Forms Nav -->
 
@@ -306,7 +316,39 @@ if(isset($_GET['idx'])){
                     <a class="btn btn-outline-primary" type="button" href="exit.php">
                       Exit Item
                     </a>
+                    <a class="btn btn-outline-success"  type="button" href="update.php">
+                     <i class="bi bi-cloud-download-fill"></i> Download
+                    </a>
+                    <?php
+                      $hapusdata = mysqli_query($koneksi, "SELECT * FROM exititem");
+                      while($hapus=mysqli_fetch_array($hapusdata)){
+                        $idb = $hapus['idstok'];
+                      }
+                    ?>
+                    <a class="btn btn-outline-danger" type="button" data-bs-toggle="modal" data-bs-target="#smallModal<?=$idb;?>">
+                      <i class="bi bi-trash-fill"></i> Delete All History
+                    </a>
                 </div>
+                <div class="modal fade" id="smallModal<?=$idb;?>" tabindex="-1">
+                <div class="modal-dialog modal-sm">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title">Hapus Riwayat</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form method="post">
+                    <div class="modal-body">
+                      Apakah yakin ingin menghapus semua riwayat
+                      <input type="hidden" name="idb" value="<?=$idb;?>">
+                    </div>
+                    <div class="modal-footer">
+                      <button type="submit" name="hapusexit" class="btn btn-danger">Hapus</button>
+                    </div>
+                    </form>
+                  </div>
+                </div>
+              </div><!-- End Small Modal-->
+
               <!-- Table with hoverable rows -->
               <table class="table table-striped" data-bs-toggle="modal" data-bs-target="#smallModal">
                 <thead>
@@ -317,6 +359,7 @@ if(isset($_GET['idx'])){
                     <th scope="col">Nama Barang</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Picker</th>
+                    <th scope="col">Time Out</th>
                     <th scope="col">Status</th>
                   </tr>
                 </thead>
@@ -330,6 +373,7 @@ if(isset($_GET['idx'])){
                       $quantity = $data['quantityx'];
                       $picker = $data['picker'];
                       $status = $data['status'];
+                      $tanggal = $data['tanggal'];
 
                       //cek data gambar ada apa kagak
                       $gambar = $data['image'];
@@ -344,10 +388,11 @@ if(isset($_GET['idx'])){
                   <tr>
                     <th scope="row"><?=$i++;?></th>
                     <td><?=$img;?></td>
-                    <td><?=$skut;?></td>
+                    <td class="text-uppercase"><?=$skut;?></td>
                     <td><?=$nama;?></td>
                     <td><?=$quantity;?></td>
                     <td><?=$picker;?></td>
+                    <td><?=$tanggal;?></td>
                     <td><?=$status;?></td>
                   </tr>
                   <?php

@@ -260,7 +260,7 @@ require '../assets/php/function.php';
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-arrow-left-right"></i><span>Transmigration</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="updatebarang.php">
               <i class="bi bi-circle"></i><span>Update Item</span>
@@ -269,6 +269,16 @@ require '../assets/php/function.php';
           <li>
             <a href="barangkeluar.php">
               <i class="bi bi-circle"></i><span>Exit Item</span>
+            </a>
+          </li>
+          <li>
+            <a href="updatebarang5.php">
+              <i class="bi bi-circle"></i><span>Update Item 5</span>
+            </a>
+          </li>
+          <li>
+            <a href="barangkeluar5.php">
+              <i class="bi bi-circle"></i><span>Exit Item 5</span>
             </a>
           </li>
         </ul>
@@ -303,14 +313,14 @@ require '../assets/php/function.php';
             <div class="card-body">
               <div class="card-title">
                   <h5>Stock Warehouse 5</h5>
-                  <a class="btn btn-outline-primary" type="button" href="baru.php">
-                    Add New
+                  <a class="btn btn-outline-primary" type="button" href="baru5.php">
+                    Add New 5
                   </a>
-                  <a class="btn btn-outline-primary" type="button" href="update.php">
-                    Update Item
+                  <a class="btn btn-outline-primary" type="button" href="update5.php">
+                    Update Item 5
                   </a>
-                  <a class="btn btn-outline-primary" type="button" href="exit.php">
-                    Exit Item
+                  <a class="btn btn-outline-primary" type="button" href="exit5.php">
+                    Exit Item 5
                   </a>
               </div>
               <!-- Table with hoverable rows -->
@@ -318,23 +328,21 @@ require '../assets/php/function.php';
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">No</th>
                     <th scope="col">Image</th>
-                    <th scope="col">Name</th>
+                    <th scope="col">Nama Barang</th>
                     <th scope="col">SKU Store</th>
-                    <th scope="col">SKU Warehouse</th>
                     <th scope="col">Warehouse</th>
                     <th scope="col">Quantity</th>
                   </tr>
                 </thead>
                 <?php 
-                    $ambildata = mysqli_query($koneksi, "SELECT * FROM stok where gudang=5");
+                    $ambildata = mysqli_query($koneksi, "SELECT * FROM stok5");
                     $i = 1;
                     while($data=mysqli_fetch_array($ambildata)){
                       $idb = $data['idstok'];
                       $nama = $data['nama'];
                       $skut = $data['skutoko'];
-                      $skug = $data['skugudang'];
                       $gudang = $data['gudang'];
                       $quantity = $data['quantity'];
 
@@ -345,7 +353,7 @@ require '../assets/php/function.php';
                         $img = '<img src="../assets/img/noimageavailable.png" class="zoomable">';
                       } else {
                         //jika ada gambar
-                        $img ='<img src="../images/'.$gambar.'" class="zoomable">';
+                        $img ='<img src="../images5/'.$gambar.'" class="zoomable">';
                       }
 
                       //cek data gambar ada apa kagak
@@ -355,7 +363,7 @@ require '../assets/php/function.php';
                         $imgx = '<img src="../assets/img/noimageavailable.png" class="gambar">';
                       } else {
                         //jika ada gambar
-                        $imgx ='<img src="../images/'.$gambar.'" class="gambar">';
+                        $imgx ='<img src="../images5/'.$gambar.'" class="gambar">';
                       }
 
 
@@ -367,7 +375,6 @@ require '../assets/php/function.php';
                     <td><?=$img;?></td>
                     <td><?=$nama;?></td>
                     <td class="text-uppercase"><?=$skut;?></td>
-                    <td class="text-uppercase"><?=$skug;?></td>
                     <td><?=$gudang;?></td>
                     <td><?=$quantity;?></td>
                   </tr>
@@ -399,22 +406,6 @@ require '../assets/php/function.php';
                               </div>
                               <br>
                               <input type="hidden" class="form-control text-uppercase" id="floatingName" name="skutoko" value="<?=$skut;?>" placeholder="SKU Warehouse">
-                              <div class="col-sm-12">
-                                <label>SKU Warehouse</label>
-                                <div class="form-floating">
-                                  <input type="text" class="form-control text-uppercase" id="floatingName" value="<?=$skug;?>" name="skugudang" placeholder="SKU Warehouse">
-                                  <label for="floatingName" class="text-uppercase"></label>
-                                </div>
-                              </div>
-                              <br>
-                              <div class="col-sm-12">
-                                <label>Warehouse</label>
-                                <div class="form-floating">
-                                  <input type="number" class="form-control text-uppercase" id="floatingName" value="<?=$gudang;?>" name="gudang" placeholder="arehouse">
-                                  <label for="floatingName"></label>
-                                </div>
-                              </div>
-                              <br>
                               <div class="col-sm-12">
                                 <label>Quantity</label>
                                 <div class="form-floating">

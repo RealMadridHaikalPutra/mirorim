@@ -248,7 +248,7 @@ if(isset($_GET['ids'])){
 
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-bank"></i><span>All Product</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
@@ -274,7 +274,7 @@ if(isset($_GET['ids'])){
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-arrow-left-right"></i><span>Transmigration</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="updatebarang.php">
               <i class="bi bi-circle"></i><span>Update Item</span>
@@ -283,6 +283,16 @@ if(isset($_GET['ids'])){
           <li>
             <a href="barangkeluar.php">
               <i class="bi bi-circle"></i><span>Exit Item</span>
+            </a>
+          </li>
+          <li>
+            <a href="updatebarang5.php">
+              <i class="bi bi-circle"></i><span>Update Item 5</span>
+            </a>
+          </li>
+          <li>
+            <a href="barangkeluar5.php">
+              <i class="bi bi-circle"></i><span>Exit Item 5</span>
             </a>
           </li>
         </ul>
@@ -312,7 +322,7 @@ if(isset($_GET['ids'])){
 
     <section class="section">
         <div class="row">
-  
+          <div class="col-lg-12">
             <div class="card">
               <div class="card-body">
                 <div class="card-title">
@@ -456,6 +466,7 @@ if(isset($_GET['ids'])){
 
             </div>
           </div>
+        </div>
     </div>
   </section>
 

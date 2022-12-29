@@ -273,6 +273,23 @@ h6 {
   padding: 0 20px 20px 20px;
 }
 
+@media (max-width: 600px) {
+  .card {
+    padding: 15px;
+
+  }
+
+  .card-body {
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .card-title {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
 .card-img-overlay {
   background-color: rgba(255, 255, 255, 0.6);
 }

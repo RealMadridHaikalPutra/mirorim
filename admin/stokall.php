@@ -252,14 +252,19 @@ if(isset($_GET['ids'])){
             <i class="bi bi-bank"></i><span>Dropshipper</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-            <li>
-                <a href="gudang.php"  class="active">
+        <li>
+                <a href="stokall.php"  class="active">
                   <i class="bi bi-circle"></i><span> All Stock</span>
                 </a>
               </li>
               <li>
-                <a href="stokds.php">
+                <a href="dropstok.php">
                   <i class="bi bi-circle"></i><span>Dropshipper Stock</span>
+                </a>
+              </li>
+              <li>
+                <a href="stokds.php">
+                  <i class="bi bi-circle"></i><span>Dropshipper Note</span>
                 </a>
               </li>
               <li>
@@ -282,11 +287,11 @@ if(isset($_GET['ids'])){
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Warehouse</h1>
+      <h1>Stock All Warehouse</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-          <li class="breadcrumb-item active">Warehouse</li>
+          <li class="breadcrumb-item active">Stock All Warehouse</li>
         </ol>
       </nav>
     </div><!-- End Page Title -->
@@ -308,21 +313,17 @@ if(isset($_GET['ids'])){
                     <th scope="col">Image</th>
                     <th scope="col">Name</th>
                     <th scope="col">SKU Store</th>
-                    <th scope="col">SKU Warehouse</th>
-                    <th scope="col">Warehouse</th>
                     <th scope="col">Quantity</th>
                   </tr>
                 </thead>
                 <?php 
-                    $ambildata = mysqli_query($koneksi, "SELECT * FROM stok where gudang <> 5");
+                    $ambildata = mysqli_query($koneksi, "SELECT * FROM stok");
                     $i = 1;
                     while($data=mysqli_fetch_array($ambildata)){
                       $idb = $data['idstok'];
                       $nama = $data['nama'];
-                      $skut = $data['skutoko'];
-                      $skug = $data['skugudang'];
-                      $gudang = $data['gudang'];
-                      $quantity = $data['quantity'];
+                      $sku = $data['skutoko'];
+                      $qtyware = $data['quantity'];
 
                       //cek data gambar ada apa kagak
                       $gambar = $data['image'];
@@ -346,23 +347,22 @@ if(isset($_GET['ids'])){
 
 
                   ?>
-                <tbody data-bs-toggle="modal" data-bs-target="#largeModal<?=$idb;?>">
+                <tbody data-bs-toggle="modal" data-bs-target="#smallModal<?=$idb;?>">
                   
                   <tr>
                     <th scope="row"><?=$i++;?></th>
                     <td><?=$img;?></td>
                     <td><?=$nama;?></td>
-                    <td class="text-uppercase"><?=$skut;?></td>
-                    <td class="text-uppercase"><?=$skug;?></td>
-                    <td><?=$gudang;?></td>
-                    <td><?=$quantity;?></td>
-                  </tr>
+                    <td><?=$sku;?></td>
+                    <td><?=$qtyware;?></td>
+                    </tr>
+                    
                   <!--Modal-->
-                <div class="modal fade" id="largeModal<?=$idb;?>" tabindex="-1">
-                  <div class="modal-dialog modal-lg">
+                <div class="modal fade" id="smallModal<?=$idb;?>" tabindex="-1">
+                  <div class="modal-dialog modal-sm">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h5 class="modal-title">Edit Item</h5>
+                        <h5 class="modal-title">Transfer To DS Stok</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                       </div>
                       
@@ -370,48 +370,22 @@ if(isset($_GET['ids'])){
                       <form method="post" class="row g-3" enctype="multipart/form-data">   
                       <div class="modal-body">
                               <div class="col-sm-12">
-                                <label><?=$imgx;?></label>
-                                <div class="form-floating">
-                                  <input type="file" name="file" class="form-control" id="floatingName">
-                                </div>
+                                <label>Transfer To DS dengan SKU <?=$sku;?> </label>
                               </div>
                               <br>
-                              <div class="col-sm-12">
-                                <label>Item Name</label>
-                                <div class="form-floating">
-                                  <input type="text" name="nama" class="form-control"  value="<?=$nama;?>" id="floatingName" placeholder="SKU Store">
-                                  <label for="floatingName"></label>
-                                </div>
-                              </div>
-                              <br>
-                              <input type="hidden" class="form-control text-uppercase" id="floatingName" name="skutoko" value="<?=$skut;?>" placeholder="SKU Warehouse">
-                              <div class="col-sm-12">
-                                <label>SKU Warehouse</label>
-                                <div class="form-floating">
-                                  <input type="text" class="form-control text-uppercase" id="floatingName" value="<?=$skug;?>" name="skugudang" placeholder="SKU Warehouse">
-                                  <label for="floatingName" class="text-uppercase"></label>
-                                </div>
-                              </div>
-                              <br>
-                              <div class="col-sm-12">
-                                <label>Warehouse</label>
-                                <div class="form-floating">
-                                  <input type="number" class="form-control text-uppercase" id="floatingName" value="<?=$gudang;?>" name="gudang" placeholder="arehouse">
-                                  <label for="floatingName"></label>
-                                </div>
-                              </div>
-                              <br>
+                              <input type="hidden" class="form-control text-uppercase" id="floatingName" name="file" value="<?=$img;?>">
+                              <input type="hidden" class="form-control text-uppercase" id="floatingName" name="nama" value="<?=$nama;?>">
+                              <input type="hidden" class="form-control text-uppercase" id="floatingName" name="skutoko" value="<?=$sku;?>">
                               <div class="col-sm-12">
                                 <label>Quantity</label>
                                 <div class="form-floating">
-                                  <input type="number" class="form-control text-uppercase" value="<?=$quantity;?>" id="floatingName" name="quantity" placeholder="Quantity">
+                                  <input type="number" class="form-control text-uppercase" id="floatingName" name="quantity" placeholder="Quantity">
                                   <label for="floatingName"></label>
                                 </div>
                               </div>
                               <br>
                               <div class="text-center">
-                                <button type="submit" name="editaja" class="btn btn-primary">Submit</button>
-                                <button type="reset" class="btn btn-secondary">Reset</button>
+                                <button type="submit" name="tfbro" class="btn btn-primary">Submit</button>
                               </div> 
                       </div>
                       </form>

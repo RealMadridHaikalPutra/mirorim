@@ -288,7 +288,7 @@ require '../assets/php/function.php';
 
 
       <li class="nav-item">
-        <a class="nav-link " data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
             <i class="bi bi-bank"></i><span>All Product</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="components-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
@@ -314,7 +314,7 @@ require '../assets/php/function.php';
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-arrow-left-right"></i><span>Transmigration</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <ul id="forms-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
           <li>
             <a href="updatebarang.php">
               <i class="bi bi-circle"></i><span>Update Item</span>
@@ -323,6 +323,16 @@ require '../assets/php/function.php';
           <li>
             <a href="barangkeluar.php">
               <i class="bi bi-circle"></i><span>Exit Item</span>
+            </a>
+          </li>
+          <li>
+            <a href="updatebarang5.php">
+              <i class="bi bi-circle"></i><span>Update Item 5</span>
+            </a>
+          </li>
+          <li>
+            <a href="barangkeluar5.php">
+              <i class="bi bi-circle"></i><span>Exit Item 5</span>
             </a>
           </li>
         </ul>
@@ -409,7 +419,6 @@ require '../assets/php/function.php';
                           <option value="2">Warehouse 2</option>
                           <option value="3">Warehouse 3</option>
                           <option value="4">Warehouse 4</option>
-                          <option value="5">Warehouse 5</option>
                           <option value="6">Warehouse 6</option>
                           <option value="7">Warehouse 7</option>
                         </select>

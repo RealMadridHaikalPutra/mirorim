@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2022 at 05:43 AM
+-- Generation Time: Dec 29, 2022 at 05:15 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -24,20 +24,28 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `dstable`
+-- Table structure for table `dsstok`
 --
 
-CREATE TABLE `dstable` (
+CREATE TABLE `dsstok` (
   `idstok` int(11) NOT NULL,
+  `image` mediumtext NOT NULL,
+  `nama` varchar(200) NOT NULL,
   `skutoko` varchar(10) NOT NULL,
-  `toko` int(11) NOT NULL,
-  `gudang` int(11) NOT NULL,
-  `tokped` int(11) NOT NULL,
-  `shopee` int(11) NOT NULL,
-  `dropshipper` int(11) NOT NULL,
-  `selisih` int(11) NOT NULL,
-  `adjust` int(11) NOT NULL,
-  `tanggal` timestamp NOT NULL DEFAULT current_timestamp()
+  `quantity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `exitds`
+--
+
+CREATE TABLE `exitds` (
+  `idstok` int(11) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
+  `skuds` varchar(20) NOT NULL,
+  `quantityds` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -52,19 +60,32 @@ CREATE TABLE `exititem` (
   `picker` varchar(200) NOT NULL,
   `quantityx` int(11) NOT NULL,
   `status` varchar(200) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
   `readmsg` int(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `exititem`
+-- Table structure for table `exititem5`
 --
 
-INSERT INTO `exititem` (`idstok`, `skutoko`, `picker`, `quantityx`, `status`, `readmsg`) VALUES
-(2, '7j2', 'Fadil', 200, 'Preparation', 1),
-(3, '7j2', 'Pak OGI', 200, 'Request', 1),
-(4, '6j7', 'Fadil', 50, 'Refill', 1),
-(5, '6j7', 'Fadil', 200, 'Refill', 1),
-(6, '7j2', 'Fadil', 500, '--', 1);
+CREATE TABLE `exititem5` (
+  `idstok` int(11) NOT NULL,
+  `skutoko` varchar(200) NOT NULL,
+  `quantityx` int(11) NOT NULL,
+  `picker` varchar(200) NOT NULL,
+  `status` varchar(200) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
+  `readmsg` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exititem5`
+--
+
+INSERT INTO `exititem5` (`idstok`, `skutoko`, `quantityx`, `picker`, `status`, `tanggal`, `readmsg`) VALUES
+(1, '7b11', 100, 'd', 'Refill', '2022-12-27 06:45:55', 0);
 
 -- --------------------------------------------------------
 
@@ -87,10 +108,31 @@ CREATE TABLE `stok` (
 --
 
 INSERT INTO `stok` (`idstok`, `nama`, `skutoko`, `skugudang`, `gudang`, `quantity`, `image`) VALUES
-(1, 'Adaptor', '7j2', '2j28', 8, 800, '12a6acbc28e8232b618e0cfd991322a5.webp'),
-(2, 'Kabel4', '22k2', '2j21', 3, 900, 'dbfa2bb42acad644c95a4f08bb91d862.png'),
-(3, 'Kabel6', '', 'k2b3', 4, 900, 'bf87892171a8eefc4e91620564b7c7b8.jpg'),
-(4, 'Tang Potong', '8j3', 'k5b3', 5, 9000, '406765a21a8181c3ad99a24f50502d72.png');
+(26, 'Adaptor', '7p2', 'j1b1', 3, 2100, 'c8be05eb1c2c5ed4894d0ecca2a0405b.jpg'),
+(27, 'kabel5', '6j7', 'k2b3', 1, 400, '77518ca1255808d495f2bdd4715c4373.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stok5`
+--
+
+CREATE TABLE `stok5` (
+  `idstok` int(11) NOT NULL,
+  `nama` varchar(200) NOT NULL,
+  `skutoko` varchar(200) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `image` mediumtext DEFAULT NULL,
+  `gudang` int(11) NOT NULL DEFAULT 5
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `stok5`
+--
+
+INSERT INTO `stok5` (`idstok`, `nama`, `skutoko`, `quantity`, `image`, `gudang`) VALUES
+(4, 'Adaptor', '7p2', 990, '12178dc919e658f24e0a232fe923a130.jpg', 5),
+(5, 'Adaptor 3', '7b11', 1900, '24e56f284e83d30d3c07798b4f643821.png', 5);
 
 -- --------------------------------------------------------
 
@@ -101,42 +143,49 @@ INSERT INTO `stok` (`idstok`, `nama`, `skutoko`, `skugudang`, `gudang`, `quantit
 CREATE TABLE `updateitem` (
   `idstok` int(11) NOT NULL,
   `skutoko` varchar(6) NOT NULL,
-  `skugudang` varchar(200) NOT NULL,
   `quantityup` int(11) NOT NULL,
   `fromitem` varchar(200) NOT NULL,
   `gudang` int(7) NOT NULL,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp(),
   `readmsg` int(2) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `updateitem`
+-- Table structure for table `updateitem5`
 --
 
-INSERT INTO `updateitem` (`idstok`, `skutoko`, `skugudang`, `quantityup`, `fromitem`, `gudang`, `readmsg`) VALUES
-(3, '7j2', 'k2b3', 500, 'China', 3, 1),
-(4, '7j2', '-', 400, 'China', 1, 1),
-(5, '1t1', '-', 700, 'Lokal', 5, 1),
-(6, '6j7', 'k2b3', 200, 'China', 3, 1),
-(7, '7b11', '-', 10, 'China', 1, 1),
-(8, '6j7', '-', 100, 'Lokal', 1, 1),
-(9, '6j7', '-', 10, 'Lokal', 3, 1),
-(10, '1t1', '-', 10, 'Lokal', 1, 1),
-(11, '6j7', '-', 40, 'Lokal', 3, 1),
-(12, '6J7', '-', 700, 'China', 3, 1),
-(13, '6j7', '--', 900, 'China', 3, 1),
-(14, '6j7', '---', 300, 'Lokal', 1, 1),
-(15, '6j7', '--', 800, 'China', 1, 1),
-(16, '7j2', '-', 800, 'Lokal', 3, 1),
-(17, '7j2', '--', 200, 'Lokal', 3, 1);
+CREATE TABLE `updateitem5` (
+  `idstok` int(11) NOT NULL,
+  `skutoko` varchar(200) NOT NULL,
+  `quantityup` int(11) NOT NULL,
+  `worker` varchar(200) NOT NULL,
+  `gudang` int(11) NOT NULL DEFAULT 5,
+  `tanggal` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `updateitem5`
+--
+
+INSERT INTO `updateitem5` (`idstok`, `skutoko`, `quantityup`, `worker`, `gudang`, `tanggal`) VALUES
+(1, '7p2', 100, 'Ilham', 5, '2022-12-27 06:48:07');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `dstable`
+-- Indexes for table `dsstok`
 --
-ALTER TABLE `dstable`
+ALTER TABLE `dsstok`
+  ADD PRIMARY KEY (`idstok`);
+
+--
+-- Indexes for table `exitds`
+--
+ALTER TABLE `exitds`
   ADD PRIMARY KEY (`idstok`);
 
 --
@@ -146,9 +195,21 @@ ALTER TABLE `exititem`
   ADD PRIMARY KEY (`idstok`);
 
 --
+-- Indexes for table `exititem5`
+--
+ALTER TABLE `exititem5`
+  ADD PRIMARY KEY (`idstok`);
+
+--
 -- Indexes for table `stok`
 --
 ALTER TABLE `stok`
+  ADD PRIMARY KEY (`idstok`);
+
+--
+-- Indexes for table `stok5`
+--
+ALTER TABLE `stok5`
   ADD PRIMARY KEY (`idstok`);
 
 --
@@ -158,32 +219,56 @@ ALTER TABLE `updateitem`
   ADD PRIMARY KEY (`idstok`);
 
 --
+-- Indexes for table `updateitem5`
+--
+ALTER TABLE `updateitem5`
+  ADD PRIMARY KEY (`idstok`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `dstable`
+-- AUTO_INCREMENT for table `exitds`
 --
-ALTER TABLE `dstable`
-  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `exitds`
+  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `exititem`
 --
 ALTER TABLE `exititem`
-  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT for table `exititem5`
+--
+ALTER TABLE `exititem5`
+  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `stok`
 --
 ALTER TABLE `stok`
-  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+
+--
+-- AUTO_INCREMENT for table `stok5`
+--
+ALTER TABLE `stok5`
+  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `updateitem`
 --
 ALTER TABLE `updateitem`
-  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+
+--
+-- AUTO_INCREMENT for table `updateitem5`
+--
+ALTER TABLE `updateitem5`
+  MODIFY `idstok` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
