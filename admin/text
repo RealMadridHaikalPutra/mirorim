@@ -1,0 +1,1 @@
+SELECT `stok`.`skutoko` FROM `stok` INNER JOIN `dstable` ON `stok`.`skutoko` = `dstable`.`skutoko` WHERE `ds` = 'on';
